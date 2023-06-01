@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('#subget').click(function () {
+                console.log('get请求');
+                $.ajax({
+                    url: 'https://ningyanke.pythonanywhere.com/api/login/',
+                    type: 'GET',
+                    crossDomain: true,
+                    // beforeSend: function (xhr) {
+                    //     xhr.setRequestHeader('Authorization', 'Bearer ' + token); // 在请求头部添加 token
+                    // },
+                    success: function (data) {
+                        console.log('请求成功');
+                        console.log(data);
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        console.log('请求失败');
+                        console.log(xhr);
+                        console.log(textStatus);
+                        console.log(errorThrown);
+                    }
+                });
+            });
+
+            $('#subget1').click(function () {
+                console.log('这是一个测试');
+            });
+
+            $('#sublog').click(function (e) {
+                e.preventDefault();
+                // var info = {
+                //     "email": $('#email').val(),
+                //     "password": $('#password').val()
+                // };
+                // console.log(info);
+                $.ajax({
+                    // async: false,
+                    url: 'https://ningyanke.pythonanywhere.com/api/login/',
+                    method: 'POST',
+                    dataType: 'json',
+                    crossDomain: true,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    // data: JSON.stringify(info),
+                    data: JSON.stringify({
+                        "email": $('#email').val(),
+                        "password": $('#password').val()
+                    }),
+                    success: function (data) {
+                        console.log('POST请求成功！');
+                        console.log(data);
+                        // console.log(info);
+                    },
+                    error: function (xhr, status, error) {
+                        // console.log(info);
+                        console.log('POST请求失败！');
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    }
+                });
+            })
+
+
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <button id="subget">点击</button>
+    <button id="subget1">点击测试1</button>
+
+    <form action="" method="post">
+        <h3> Login information</h3>
+        <h3>Login</h3>
+        <input class="mail" type="email" name="email" placeholder="e-mail adress" id="email">
+        <br>
+        <input class="pass" type="password" name="password" placeholder="password" id="password">
+        <br>
+        <input class="submit" type="submit" value="Login" id="sublog">
+    </form>
+
+</body>
+
+</html>
